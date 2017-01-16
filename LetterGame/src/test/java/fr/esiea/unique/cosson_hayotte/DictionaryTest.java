@@ -1,7 +1,8 @@
-package fr.esiea.unique.binome.name.dictionary;
+package fr.esiea.unique.cosson_hayotte;
 
 import org.junit.Before;
 
+import fr.esiea.unique.cosson_hayotte.IDictionary;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
