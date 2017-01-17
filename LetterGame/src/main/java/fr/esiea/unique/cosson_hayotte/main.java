@@ -9,7 +9,13 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			System.out.println("coucou");
-			SacLettres tirage = new SacLettres(Math.random()*25);
+			//Déclaration objet
+			SacLettres tirage = new SacLettres();
+			//1er tirage
+			tirage.nouveauTirage();
+			System.out.println(tirage.getLettre());
+			//2ème tirage
+			tirage.nouveauTirage();
 			System.out.println(tirage.getLettre());
 	}
 
