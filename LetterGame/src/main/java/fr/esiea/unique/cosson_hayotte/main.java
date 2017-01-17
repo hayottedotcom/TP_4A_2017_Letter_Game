@@ -9,14 +9,22 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			System.out.println("coucou");
+			
 			//Déclaration objet
 			SacLettres tirage = new SacLettres();
+			PotCommun pot = new PotCommun();
+			
 			//1er tirage
 			tirage.nouveauTirage();
-			System.out.println(tirage.getLettre());
+			pot.addPotCommum(tirage.getLettre());
+			System.out.println("Tirage 1 : "+tirage.getLettre());
+			pot.affichePotCommun();
+
 			//2ème tirage
 			tirage.nouveauTirage();
-			System.out.println(tirage.getLettre());
+			pot.addPotCommum(tirage.getLettre());
+			System.out.println("Tirage 2 : "+tirage.getLettre());
+			pot.affichePotCommun();
 	}
 
 }
