@@ -23,7 +23,7 @@ public class PotCommun {
 	}
 	//Afficher pot commun
 	public void affichePotCommun(){
-		System.out.println("Pot Commun :");
+		System.out.print("Pot Commun : ");
 		System.out.print("[");
 		potCommum.forEach(System.out::print);
 		System.out.println("]");
