@@ -1,12 +1,24 @@
 package fr.esiea.unique.cosson_hayotte;
 
+import java.util.Random;
+
 public class SacLettres {
 	
 	//Tableau contenant les lettres
-	private String[] sac={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"
-			,"p","q","r","s","t","u","v","w","x","y","z"};
+	private String lettre;
+	
+	private String[] sacVoyelle = {
+			"a", "e", "i", "o", "u","y"
+	};
+	
+	private String[] sacConsonne = {
+			"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"
+	};
+	
+	
 	//Nombre aléatoire généré
-	private double random;
+	private double freqAlea;
+	private int random;
 
 	public SacLettres() {
 		// TODO Auto-generated constructor stub
@@ -14,11 +26,18 @@ public class SacLettres {
 	}
 	//Génaration d'un nombre aléatoire pour chaque nouveau tirage
 	public void nouveauTirage(){
-		random=Math.random() * 25;
+		freqAlea = Math.random() * 99; //10 éléments
+		if(freqAlea<65) {
+			random = (int) (Math.random() * sacVoyelle.length);
+			lettre = (sacVoyelle[random]);
+		} else {
+			random = (int) (Math.random() * sacConsonne.length);
+			lettre = (sacConsonne[random]);
+		}
 	}
 	//getter de la lettre en fonction du random
 	public String getLettre(){
-		return sac[(int) random];
+		return lettre;
 	}
 
 }
