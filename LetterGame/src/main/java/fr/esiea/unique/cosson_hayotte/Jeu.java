@@ -70,7 +70,7 @@ public class Jeu implements Runnable {
         		//Si c'est son tour alors
         		if(liste.getTour()){
         			//Tire 2 nouvelles aléatoires et rajoute au pot commun
-        			System.out.println(liste.getNom()+" tire une lettre");
+        			System.out.println(liste.getNom()+" tire deux lettre");
     				tirage.nouveauTirage();
     				pot.addPotCommum(tirage.getLettre());
     				pot.affichePotCommun();
@@ -78,7 +78,8 @@ public class Jeu implements Runnable {
     				pot.addPotCommum(tirage.getLettre());
     				pot.affichePotCommun();
         			//Il entre un mot ou il passe
-        			System.out.println(liste.getNom()+" : Essaye de faire mot ou passe en écrivant 'passe'");
+        			System.out.println(liste.getNom()+" : Essayes de faire un mot, passes en écrivant 'P'"
+        					+ " ou affiche la liste des mots en écrivant 'L'");
         			
         			//Attente de l'entrée joueur
         			Scanner test = new Scanner(System.in);
@@ -86,14 +87,35 @@ public class Jeu implements Runnable {
         			
         			
         			//Si il passe alors
-        			if("passe".equals(s)){
+        			if("P".equals(s)){
         				//Ce n'est plus son tour
         				liste.setTour(false);
-        				//Si c'est le dernier le 1er joueur rejoue
+        				//Si c'est le dernier, le 1er joueur rejoue
         				if(i+1==listeJoueurs.size())
         					listeJoueurs.get(0).setTour(true);
         				//Sinon le suivant joue
         				else listeJoueurs.get(i+1).setTour(true);	        				
+        			}
+        			else if("L".equals(s)){
+        				listeJoueurs.get(i).afficheListeMots();
+        			}
+        			//Sinon il entre un mot
+        			else{
+        				int cpt=0;
+        				Dictionnaire dico=new Dictionnaire();
+        				while((pot.motDansPot(s)==false) && ((dico.bonMot(s)==false)|| dico.bonMot(s)==true)){
+        					dico=new Dictionnaire();
+        					System.out.println("Le mot est incorrect ou pas présent dans le pot");
+        					s=test.nextLine();
+        				}
+        				listeJoueurs.get(i).addMotDansListe(s);
+    					//Ce n'est plus son tour
+        				liste.setTour(false);
+        				//Si c'est le dernier, le 1er joueur rejoue
+        				if(i+1==listeJoueurs.size())
+        					listeJoueurs.get(0).setTour(true);
+        				//Sinon le suivant joue
+        				else listeJoueurs.get(i+1).setTour(true);
         			}
 			
         		}

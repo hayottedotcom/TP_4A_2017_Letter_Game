@@ -14,6 +14,9 @@ public class PotCommun {
 	public void addPotCommum(String lettre){
 		potCommum.add(lettre);
 	}
+	/*public void deleteFromPotCommun(String lettre){
+		potCommum.remove(lettre);
+	}*/
 	
 	//get potCommun
 	public List<String> getPotCommum(){
@@ -28,6 +31,23 @@ public class PotCommun {
 		potCommum.forEach(System.out::print);
 		System.out.println("]");
 
+	}
+	public boolean motDansPot(String s){
+		int cpt=0;
+		for(int i=0;i<s.length();i++){
+			//System.out.println(s.length());
+			//System.out.println(s.charAt(i));
+			String lettre=""+s.charAt(i);
+			if(potCommum.contains(lettre)){
+				potCommum.remove(lettre);
+				cpt++;
+			}
+			if(cpt==s.length()){
+				System.out.println("Mot ok depuis le pot ocmmun");
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
