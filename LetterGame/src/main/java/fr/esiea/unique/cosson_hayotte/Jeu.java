@@ -103,10 +103,16 @@ public class Jeu implements Runnable {
         			else{
         				int cpt=0;
         				Dictionnaire dico=new Dictionnaire();
-        				while((pot.motDansPot(s)==false) && ((dico.bonMot(s)==false)|| dico.bonMot(s)==true)){
+        				//dico.bonMot(s);
+        				while(true){
         					dico=new Dictionnaire();
+        					if (s.equals("P"))
+        						break;
+        					else if(dico.bonMot(s)==false || pot.motDansPot(s)==false){
         					System.out.println("Le mot est incorrect ou pas présent dans le pot");
         					s=test.nextLine();
+        					}
+        					else break;
         				}
         				listeJoueurs.get(i).addMotDansListe(s);
     					//Ce n'est plus son tour

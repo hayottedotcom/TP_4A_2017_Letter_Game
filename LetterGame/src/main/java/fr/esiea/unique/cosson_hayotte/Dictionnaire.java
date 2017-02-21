@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 public class Dictionnaire {
 	InputStream is;
 	BufferedReader in;
-	Dictionnaire(){
+	public Dictionnaire(){
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		is = loader.getResourceAsStream("dico.txt");
 		InputStreamReader isr = new InputStreamReader(is);
@@ -17,9 +17,11 @@ public class Dictionnaire {
 	
 	public boolean bonMot(String word){
 		 String str="";
+	     //System.out.println("AHHHHHHHHHHHHHHHHHHH");
          try {
 			while ((str = in.readLine()) != null) {
-			     if (str.indexOf(word) != -1) {
+			     if (str.equals(word)) {
+			    	
 			         return true;
 			     }
 			 }
@@ -29,7 +31,7 @@ public class Dictionnaire {
 			e.printStackTrace();
 		}
         
-    
+
 
      return false;
 	}
