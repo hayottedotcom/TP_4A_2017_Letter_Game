@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class TestApp {
 	
-	SacLettres sl = new SacLettres();
+	LetterBag sl = new LetterBag();
 
 	
 	@Before
@@ -17,8 +17,8 @@ public class TestApp {
 
 	@Test
 	public void testGetLettre() {
-		sl.nouveauTirage();
-		String lettre = sl.getLettre();
+		sl.newDraw();
+		String lettre = sl.getLetter();
 		assertNotNull(lettre); //Test si la lettre existe
 	}
 	
