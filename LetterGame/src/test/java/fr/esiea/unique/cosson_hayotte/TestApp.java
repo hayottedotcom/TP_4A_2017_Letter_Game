@@ -2,6 +2,8 @@ package fr.esiea.unique.cosson_hayotte;
 
 import static org.junit.Assert.*;
 
+import java.awt.List;
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -28,7 +30,7 @@ public class TestApp {
 	}
 	
 	@Test
-	public void DicoString () {
+	public void dicoString () {
 		Dictionary dc = new Dictionary();
 		String str = "";
 		Boolean isString = false;
@@ -45,6 +47,19 @@ public class TestApp {
 			e.printStackTrace();
 		}
 		assertEquals(isString, true); //If OK, there are no alphanumeric characters in the Dictionary entries.
+	}
+	
+	@Test
+	public void testDictionaryWordExists() {
+		Dictionary dc = new Dictionary();
+		String input = "test";
+		assertEquals(dc.isWord(input), true);
+	}
+	
+	@Test
+	public void testIsDictionaryTxtFileExists() {
+		boolean f = new File("src/main/resources/dico.txt").exists();
+		assertEquals(f, true);
 	}
 
 }
