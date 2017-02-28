@@ -3,8 +3,10 @@ package fr.esiea.unique.cosson_hayotte;
 import static org.junit.Assert.*;
 
 import java.awt.List;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.hamcrest.Matcher;
@@ -72,7 +74,35 @@ public class TestApp {
 		java.util.regex.Matcher m = lts.matcher(randomLetter);
 		boolean b = m.matches();
 		assertEquals(true, b); //
-		
+	}
+	
+	@Test
+	public void testCommunPot() {
+		CommonPot cm = new CommonPot();
+		String letterA = "a";
+		String letterB = "b";
+		ArrayList<String> letters = new ArrayList<String>();
+		letters.add(letterA);
+		letters.add(letterB);
+		cm.addCommonPot(letterA);
+		cm.addCommonPot(letterB);
+		assertTrue(letters.equals(cm.getCommonPot()));
+	}
+	
+	@Test
+	public void testGame(){
+		boolean x; //
+		CommonPot cm = new CommonPot();
+		Dictionary dc = new Dictionary();
+		LetterBag lb = new LetterBag();
+		String out="";
+		String in = "soleil";
+		do {
+			lb.newDraw();
+			out = lb.getLetter();
+			cm.addCommonPot(out);
+		} while(x = in.indexOf(cm.getCommonPot().toString()) < 0);
+		assertTrue(x);
 	}
 
 }
