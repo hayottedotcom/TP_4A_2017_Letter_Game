@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,7 @@ public class TestApp {
 	
 	LetterBag sl = new LetterBag();
 	Pattern p = Pattern.compile("[0-9]");
+	Pattern lts = Pattern.compile("\\p{L}*");
 	Boolean hasSpecialChar = false;
 
 	
@@ -60,6 +62,17 @@ public class TestApp {
 	public void testIsDictionaryTxtFileExists() {
 		boolean f = new File("src/main/resources/dico.txt").exists();
 		assertEquals(f, true);
+	}
+	
+	@Test
+	public void testIsLetter() {
+		LetterBag lb = new LetterBag();
+		lb.newDraw();
+		String randomLetter = lb.getLetter();
+		java.util.regex.Matcher m = lts.matcher(randomLetter);
+		boolean b = m.matches();
+		assertEquals(true, b); //
+		
 	}
 
 }
