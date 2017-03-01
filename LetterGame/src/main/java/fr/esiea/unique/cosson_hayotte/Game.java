@@ -95,9 +95,9 @@ public class Game implements Runnable {
 
 		}
 		else{
-		for(int i=1;i<=nbPlayers;i++){
+		for(int i=0;i<nbPlayers;i++){
 			//Initialise les joueurs
-			listPlayers.add(new Player("Joueur "+i));
+			listPlayers.add(new Player("Joueur "+(i+1)));
 			//Séquence de démarage (tirage + ajout dans le pot)
 			startSeq(i);
 
