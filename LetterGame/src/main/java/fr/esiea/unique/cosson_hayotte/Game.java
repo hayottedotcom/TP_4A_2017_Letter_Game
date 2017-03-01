@@ -9,12 +9,14 @@ public class Game implements Runnable {
 	
 	//Déclaration objet
 	static int i;
-	int nbJoueurs;
+	int nbPlayers;
 	LetterBag tirage = new LetterBag();
 	CommonPot pot = new CommonPot();
 	List<Player> listPlayers = new ArrayList <Player>();
 	TreeMap<String, String> treeMap=new TreeMap<String, String>();
+	Display display;
 	IA ia;
+	InputPlayer input;
 	
 	public Game(){
 		i=0;
@@ -22,64 +24,87 @@ public class Game implements Runnable {
 		pot = new CommonPot();
 		listPlayers = new ArrayList <Player>();
 		treeMap=new TreeMap<String, String>();
+		display=new Display();
+		input=new InputPlayer();
 	}
 	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		//Recuperation du nombre de joueur
-		System.out.println("Choisis le nombre de joueur ou entre 0 pour jouer contre L'IA ");
-		Scanner sc = new Scanner(System.in);
-		nbJoueurs=sc.nextInt();
-		
-		if(nbJoueurs==0){
-			listPlayers.add(new Player("IA"));
-			listPlayers.add(new Player("Joueur 1"));
-			ia=new IA(listPlayers.get(0));
-			
-			for(int i=0;i<=1;i++){
-				//nouveau tirage
-				tirage.newDraw();
+	public void startSeq(int i){
 
-				//remplissage du treeMap (lettre/joueur) pour trier la plus petite lettre
-				treeMap.put(tirage.getLetter(), listPlayers.get(i).getName());
-				
-				//associe la lettre tirée avec le joueur
-				listPlayers.get(0).setLastLetter(tirage.getLetter());
-				System.out.println("\n"+listPlayers.get(i).getName()+" a tiré la lettre : "+listPlayers.get(i).getLastLetter());
-				
-				//Affichage potCommun
-				pot.addCommonPot(tirage.getLetter());
-				pot.printCommonPot();
-			}
-
-		}
-		else{
-		for(int i=1;i<=nbJoueurs;i++){
-			//Initialise les joueurs
-			listPlayers.add(new Player("Joueur "+i));
-			
 			//nouveau tirage
 			tirage.newDraw();
 
 			//remplissage du treeMap (lettre/joueur) pour trier la plus petite lettre
-			treeMap.put(tirage.getLetter(), listPlayers.get(i-1).getName());
+			treeMap.put(tirage.getLetter(), listPlayers.get(i).getName());
 			
 			//associe la lettre tirée avec le joueur
-			listPlayers.get(i-1).setLastLetter(tirage.getLetter());
-			System.out.println(listPlayers.get(i-1).getName()+" a tiré la lettre : "+listPlayers.get(i-1).getLastLetter());
+			listPlayers.get(i).setLastLetter(tirage.getLetter());
+			System.out.println("\n"+listPlayers.get(i).getName()+" a tiré la lettre : "+listPlayers.get(i).getLastLetter());
 			
 			//Affichage potCommun
 			pot.addCommonPot(tirage.getLetter());
 			pot.printCommonPot();
 
-		}}
-		//Affichage du joueur avec la plus petite lettre
-        System.out.println(treeMap.firstEntry()+" donc 1er à jouer");
+	}
+	
+	public void firstPlayer(){
+		System.out.println(treeMap.firstEntry()+" donc 1er à jouer");
         listPlayers.forEach((liste)->{
         	if(liste.getName()==treeMap.firstEntry().getValue())
         		liste.setTurn(true);
         });
+	}
+	
+	public void endTurn(Player liste){
+		//Ce n'est plus son tour
+		liste.setTurn(false);
+		//Si c'est le dernier, le 1er joueur rejoue
+		if(i+1==listPlayers.size())
+			listPlayers.get(0).setTurn(true);
+		//Sinon le suivant joue
+		else listPlayers.get(i+1).setTurn(true);
+	}
+	
+	
+	public void newTurn(Player liste){
+		System.out.println("\n"+liste.getName()+" tire deux lettres");
+		tirage.newDraw();
+		pot.addCommonPot(tirage.getLetter());
+		//pot.affichePotCommun();
+		tirage.newDraw();
+		pot.addCommonPot(tirage.getLetter());
+		pot.printCommonPot();
+	}
+	
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		//Recuperation du nombre de joueur
+		display.playerMode();
+		nbPlayers=input.playerNumber();
+		
+		if(nbPlayers==0){
+			listPlayers.add(new Player("IA"));
+			listPlayers.add(new Player("Joueur 1"));
+			ia=new IA(listPlayers.get(0));
+			
+			for(int i=0;i<=1;i++){
+				//Séquence de démarage (tirage + ajout dans le pot)
+				startSeq(i);
+			}
+
+		}
+		else{
+		for(int i=1;i<=nbPlayers;i++){
+			//Initialise les joueurs
+			listPlayers.add(new Player("Joueur "+i));
+			//Séquence de démarage (tirage + ajout dans le pot)
+			startSeq(i);
+
+		}}
+		
+		//Affichage du joueur avec la plus petite lettre
+        firstPlayer();
         
        while(true){
     	   //Quand la liste de joueurs a été parcouru on recommence
@@ -88,7 +113,14 @@ public class Game implements Runnable {
         	listPlayers.forEach((liste)->{
         		//Si c'est son tour alors
         		if(liste.getTurn()){
+        			
+        			//Tire 2 nouvelles lettres aléatoires et rajoute au pot commun
+        			newTurn(liste);
+
+    				
+    				//Si l'IA joue
     				if(liste.getName()=="IA"){
+    					//L'IA fait un mot
     					ia.iaMakeWord(pot.getCommonPot());
     					//Ce n'est plus son tour
         				liste.setTurn(false);
@@ -99,53 +131,33 @@ public class Game implements Runnable {
         				else listPlayers.get(i+1).setTurn(true);
         				
     				}
-        			//Tire 2 nouvelles aléatoires et rajoute au pot commun
-        			System.out.println("\n"+liste.getName()+" tire deux lettres");
-    				tirage.newDraw();
-    				pot.addCommonPot(tirage.getLetter());
-    				//pot.affichePotCommun();
-    				tirage.newDraw();
-    				pot.addCommonPot(tirage.getLetter());
-    				pot.printCommonPot();
-    				System.out.println("----Listes Mots------");
-    				listPlayers.forEach((l)->{
-    					l.printListWords();
-    			    });
-    				System.out.println("---------------------");
-        			//Il entre un mot ou il passe
+    				//Affichage de la liste des mots du joueurs
+    				display.listWords(listPlayers);
     				
-
+        			//Si ce n'est pas l'IA, le joueur entre un mot ou passe
     				if(liste.getName()!="IA"){
         			System.out.println(liste.getName()+" : Essayes de faire un mot ou passes en écrivant 'P'");
         			
         			//Attente de l'entrée joueur
-        			Scanner test = new Scanner(System.in);
-        			String s=test.nextLine();
+        			String s=new Scanner(System.in).nextLine();
 
         				int cpt=0;
         				Dictionary dico=new Dictionary();
         				//dico.bonMot(s);
         				while(true){
         					dico=new Dictionary();
+        					//Si le joueur vole un mot
         					if(dico.stealWord(s, listPlayers, pot)){
-        						//liste.addMotDansListe(s);
         						break;
         					}
         					else if("P".equals(s)){
-        	        				//Ce n'est plus son tour
-        	        				liste.setTurn(false);
-        	        				//Si c'est le dernier, le 1er joueur rejoue
-        	        				if(i+1==listPlayers.size())
-        	        					listPlayers.get(0).setTurn(true);
-        	        				//Sinon le suivant joue
-        	        				else listPlayers.get(i+1).setTurn(true);
+        	        				//Fin du tour
+        							endTurn(liste);
         	        				break;
         	        		}
         					else if(dico.isWord(s)==false || pot.wordInPot(s)==false){
         					System.out.println("Le mot est incorrect ou pas présent dans le pot");
-        					s=test.nextLine();
-        					
-
+        					s=input.playerWord();
         					}
         					else{
         						tirage.newDraw();
@@ -157,13 +169,8 @@ public class Game implements Runnable {
         				if(!s.equals("P")){
         					
         				listPlayers.get(i).addWord(s);
-    					//Ce n'est plus son tour
-        				liste.setTurn(false);
-        				//Si c'est le dernier, le 1er joueur rejoue
-        				if(i+1==listPlayers.size())
-        					listPlayers.get(0).setTurn(true);
-        				//Sinon le suivant joue
-        				else listPlayers.get(i+1).setTurn(true);
+    					//Fin du tour
+        				endTurn(liste);
         				}
         			}
         		}

@@ -89,7 +89,7 @@ public class TestApp {
 		assertTrue(letters.equals(cm.getCommonPot()));
 	}
 	
-	@Test
+	/*@Test
 	public void testGame(){
 		boolean x; //
 		CommonPot cm = new CommonPot();
@@ -103,6 +103,6 @@ public class TestApp {
 			cm.addCommonPot(out);
 		} while(x = in.indexOf(cm.getCommonPot().toString()) < 0);
 		assertTrue(x);
-	}
+	}*/
 
 }
