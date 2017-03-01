@@ -11,13 +11,13 @@ public class IA {
 		this.IA=IA;
 	}
 	
-	public void iaMakeWord(List<String> pot){
+	public boolean iaMakeWord(List<String> pot){
 		Dictionary dico= new Dictionary();
 		BufferedReader in=dico.getDictionary();
 		String str="";
         try {
 			while ((str = in.readLine()) != null) {
-			     if (str.matches("^(?:(["+pot+"])(?!.*\1))*$")) {
+			     if (str.matches("["+pot+"]*")) {
 			    	IA.addWord(str);
 			    	//System.out.println(str.length()+" "+str.charAt(0));
 			    	for (int i=0;i<str.length();i++)
@@ -25,6 +25,7 @@ public class IA {
 			    	LetterBag draw=new LetterBag();
 			    	draw.newDraw();
 			    	pot.add(draw.getLetter());
+			    	return true;
 
 			     }
 			 }
@@ -33,6 +34,7 @@ public class IA {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        return false;
 	}
 	
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class main {
-
+	
 	public main() {
 		// TODO Auto-generated constructor stub
 	}
@@ -18,6 +18,7 @@ public class main {
 		// TODO Auto-generated method stub
 		Game nouvellePartie=new Game();
 		nouvellePartie.run();
+		
 		System.exit(0);
 	}
 

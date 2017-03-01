@@ -9,15 +9,14 @@ public class Game implements Runnable {
 	
 	//Déclaration objet
 	static int i;
-	int nbPlayers;
-	LetterBag tirage = new LetterBag();
-	CommonPot pot = new CommonPot();
-	List<Player> listPlayers = new ArrayList <Player>();
-	TreeMap<String, String> treeMap=new TreeMap<String, String>();
-	Display display;
-	IA ia;
-	InputPlayer input;
-	
+	private int nbPlayers;
+	private LetterBag tirage = new LetterBag();
+	private CommonPot pot = new CommonPot();
+	private List<Player> listPlayers = new ArrayList <Player>();
+	private TreeMap<String, String> treeMap=new TreeMap<String, String>();
+	private Display display;
+	private IA ia;
+	private InputPlayer input;
 	public Game(){
 		i=0;
 		tirage = new LetterBag();
@@ -73,6 +72,10 @@ public class Game implements Runnable {
 		tirage.newDraw();
 		pot.addCommonPot(tirage.getLetter());
 		pot.printCommonPot();
+	}
+	
+	public boolean isRunning(){
+		return true;
 	}
 	
 	
@@ -155,9 +158,10 @@ public class Game implements Runnable {
         							endTurn(liste);
         	        				break;
         	        		}
-        					else if(dico.isWord(s)==false || pot.wordInPot(s)==false){
+        					else if(dico.isWord(s)==false || pot.wordInPot(s,listPlayers)==false){
+        					
         					System.out.println("Le mot est incorrect ou pas présent dans le pot");
-        					s=input.playerWord();
+        					s=new Scanner(System.in).nextLine();
         					}
         					else{
         						tirage.newDraw();

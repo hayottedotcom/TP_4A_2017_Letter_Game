@@ -46,14 +46,25 @@ public class Dictionary {
     		i=0;
     		list.getListWords().forEach((li)->{
     			if(s.indexOf(li)!=-1){
-    				 start=s.substring(0, s.indexOf(li));
-    				 word=li;
-    				 end=s.substring(s.indexOf(li)+li.length(), s.length());
-
-    				if(isWord(s)&&( start.matches("["+pot.getCommonPot()+"]*") || end.matches("["+pot.getCommonPot()+"]*")) ||
-    						( start.matches("["+pot.getCommonPot()+"]*") && end.matches("["+pot.getCommonPot()+"]*"))){
-    					
-    					i=1;
+    				Dictionary dico= new Dictionary();
+    				BufferedReader in=dico.getDictionary();
+    				String str="";
+    		        try {
+    					while ((str = in.readLine()) != null) {
+    					     if (str.matches("["+pot+li+"]*") && str.equals(s) && !s.equals(li)) {
+    					    	 for(int i=0;i<str.length();i++){
+    					    		 if(!li.contains(""+str.charAt(i))){
+    					    			 pot.getCommonPot().remove(""+str.charAt(i));
+    					    		 }
+    					    	 }
+    					    	 System.out.println("dfsdsf");
+    					    	 word=li;
+    					    	 i=1;
+    					     }
+    					 }
+    				} catch (IOException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
     				}
     			}
     		});
@@ -63,8 +74,8 @@ public class Dictionary {
     			//return true	
     });
    	 if(i==1)
-	
    		 return true;
+   	 
    	 return false;
    	 
     }

@@ -2,13 +2,15 @@ package fr.esiea.unique.cosson_hayotte;
 
 import static org.junit.Assert.*;
 
-import java.awt.List;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
 import org.hamcrest.Matcher;
@@ -138,5 +140,89 @@ public class TestApp {
 		}
 	}
 	
+	@Test
+	public void testIsIntInputPlayer(){
+		String dataInput = "99";
+		InputStream stdin = System.in;
+		try
+		{
+			System.setIn(new ByteArrayInputStream(dataInput.getBytes()));
+			InputPlayer ip = new InputPlayer();
+			assertTrue((Integer)ip.playerNumber() instanceof Integer);
+		} finally {
+			System.setIn(stdin);
+		}
+	}
+	
+	@Test
+	public void testWordInPlayerList(){
+		Player player=new Player("test");
+		String wordTest="Test";
+		player.addWord(wordTest);
+		assertTrue(player.getListWords().contains(wordTest));
+	}
+	
+	@Test
+	public void testRemoveWordInPlayerList(){
+		Player player=new Player("test");
+		String wordTest="Test";
+		player.addWord(wordTest);
+		player.removeWord(wordTest);
+		assertFalse(player.getListWords().contains(wordTest));
+	}
+	
+	@Test
+	public void testGameIsRunning() {
+
+		 	Game game = new Game();
+		 	boolean running;
+		    ExecutorService service = Executors.newSingleThreadExecutor();
+		    service.execute(game);
+		    // Add something like this.
+		    running=game.isRunning();
+		    service.shutdown();
+		    assertEquals(true,running);
+	    // Add something like this.
+	 
+
+	}
+	
+	@Test
+	public void testIAWordOk(){
+		Player testPlayer =new Player("IA");
+		IA testIA=new IA(testPlayer);
+		List<String> testPot = new ArrayList<String>(); 
+		testPot.add("a");
+		testPot.add("n");
+		testPot.add("g");
+		testPot.add("e");
+		assertEquals(true,testIA.iaMakeWord(testPot));
+	}
+	
+	@Test
+	public void testWordInPot(){
+		List<Player> testListPlayers=new ArrayList <Player>();
+		testListPlayers.add(new Player("test"));
+		CommonPot testPot=new CommonPot();
+		testPot.addCommonPot("t");
+		testPot.addCommonPot("o");
+		testPot.addCommonPot("n");
+		assertEquals(true,testPot.wordInPot("tno", testListPlayers));
+	}
+	
+	@Test
+	public void testMainIsClas() {
+		
+		try {
+			Class.forName("fr.esiea.unique.cosson_hayotte.main");
+			assertTrue(true);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false);
+			e.printStackTrace();
+		}
+	 
+
+	}
 	
 }
