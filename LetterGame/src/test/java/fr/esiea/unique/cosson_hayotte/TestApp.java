@@ -6,7 +6,9 @@ import java.awt.List;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import org.hamcrest.Matcher;
@@ -121,4 +123,20 @@ public class TestApp {
 		
 		assertTrue(count > expected);
 	}
+	
+	@Test
+	public void testIsStringInputPlayer() {
+		String dataInput = "This is a Test";
+		InputStream stdin = System.in;
+		try
+		{
+			System.setIn(new ByteArrayInputStream(dataInput.getBytes()));
+			InputPlayer ip = new InputPlayer();
+			assertTrue(ip.playerWord() instanceof String);
+		} finally {
+			System.setIn(stdin);
+		}
+	}
+	
+	
 }
