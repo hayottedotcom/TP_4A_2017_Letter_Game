@@ -89,11 +89,10 @@ public class TestApp {
 		assertTrue(letters.equals(cm.getCommonPot()));
 	}
 	
-	@Test
+	/*@Test
 	public void testGame(){
-		boolean x; //
+		boolean x = false; //
 		CommonPot cm = new CommonPot();
-		Dictionary dc = new Dictionary();
 		LetterBag lb = new LetterBag();
 		String out="";
 		String in = "soleil";
@@ -101,8 +100,25 @@ public class TestApp {
 			lb.newDraw();
 			out = lb.getLetter();
 			cm.addCommonPot(out);
-		} while(x = in.indexOf(cm.getCommonPot().toString()) < 0);
-		assertTrue(x);
-	}
+		} while(x = in.matches(cm.getCommonPot().toString()) == false);
+		assertEquals(true, x);
+	}*/
 
+	@Test
+	public void testFreqLetter() {
+		LetterBag lb = new LetterBag();
+		int count = 0;
+		int expected = 55;
+		for (int i = 0 ; i < 100 ; i++)
+		{
+			lb.newDraw();
+			if(lb.getLetter()=="a" ||
+			   lb.getLetter()=="e" ||
+			   lb.getLetter()=="i" ||
+			   lb.getLetter()=="o" ||
+			   lb.getLetter()=="u") count++;
+		}
+		
+		assertTrue(count > expected);
+	}
 }
