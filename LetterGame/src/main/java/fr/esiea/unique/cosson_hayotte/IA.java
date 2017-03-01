@@ -17,7 +17,7 @@ public class IA {
 		String str="";
         try {
 			while ((str = in.readLine()) != null) {
-			     if (str.matches("["+pot+"]?")) {
+			     if (str.matches("^(?:(["+pot+"])(?!.*\1))*$")) {
 			    	IA.addWord(str);
 			    	//System.out.println(str.length()+" "+str.charAt(0));
 			    	for (int i=0;i<str.length();i++)
