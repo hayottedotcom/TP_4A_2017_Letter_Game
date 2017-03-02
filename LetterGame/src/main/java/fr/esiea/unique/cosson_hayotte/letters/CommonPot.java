@@ -48,6 +48,7 @@ public class CommonPot {
 			if(cpt==s.length()){
 				//System.out.println("Mot ok depuis le pot commun");
 				return true;
+				
 			}
 		}
 		doubleWord=false;

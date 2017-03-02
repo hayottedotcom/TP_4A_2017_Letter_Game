@@ -7,6 +7,7 @@ public class Player {
 	
 	private String lastLetter;
 	private String name;
+	private int score=0;
 	private List<String> listWords= new ArrayList<String>();
 	private boolean turn;
 	public Player(String name){
@@ -23,6 +24,12 @@ public class Player {
 	public List<String> getListWords(){
 		
 		return listWords;
+	}
+	public void setScore(){
+		score++;
+	}
+	public int getScore(){
+		return score;
 	}
 	
 	public void printListWords(){

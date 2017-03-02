@@ -59,7 +59,7 @@ public class Dictionary {
     					    			 pot.getCommonPot().remove(""+str.charAt(i));
     					    		 }
     					    	 }
-    					    	 System.out.println("dfsdsf");
+    					    	 //System.out.println("dfsdsf");
     					    	 word=li;
     					    	 i=1;
     					     }

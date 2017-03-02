@@ -24,6 +24,7 @@ public class Game implements Runnable {
 	private Display display;
 	private IA ia;
 	private InputPlayer input;
+	
 	public Game(){
 		i=0;
 		tirage = new LetterBag();
@@ -121,6 +122,10 @@ public class Game implements Runnable {
     	    i=0;
     	    //On parcours la liste de joueurs
         	listPlayers.forEach((liste)->{
+        		if(liste.getScore()==10){
+        			System.out.println(liste.getName()+" à gagné");
+        			System.exit(0);
+        		}
         		//Si c'est son tour alors
         		if(liste.getTurn()){
         			
@@ -132,13 +137,8 @@ public class Game implements Runnable {
     				if(liste.getName()=="IA"){
     					//L'IA fait un mot
     					ia.iaMakeWord(pot.getCommonPot());
-    					//Ce n'est plus son tour
-        				liste.setTurn(false);
-        				//Si c'est le dernier, le 1er joueur rejoue
-        				if(i+1==listPlayers.size())
-        					listPlayers.get(0).setTurn(true);
-        				//Sinon le suivant joue
-        				else listPlayers.get(i+1).setTurn(true);
+    					liste.setScore();
+    					endTurn(liste);
         				
     				}
     				//Affichage de la liste des mots du joueurs
@@ -178,7 +178,7 @@ public class Game implements Runnable {
         					}
         				}
         				if(!s.equals("P")){
-        					
+        				listPlayers.get(i).setScore();	
         				listPlayers.get(i).addWord(s);
     					//Fin du tour
         				endTurn(liste);
