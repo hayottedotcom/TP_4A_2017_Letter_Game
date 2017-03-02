@@ -1,4 +1,4 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.players;
 
 import java.util.ArrayList;
 import java.util.List;

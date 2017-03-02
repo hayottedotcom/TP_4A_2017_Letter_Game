@@ -1,4 +1,4 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.letters;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,9 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import fr.esiea.unique.cosson_hayotte.players.Player;
+
 public class Dictionary {
-	InputStream is;
-	BufferedReader in;
+	private InputStream is;
+	private BufferedReader in;
 	int i=0;
 	String start,end,word;
 	public Dictionary(){

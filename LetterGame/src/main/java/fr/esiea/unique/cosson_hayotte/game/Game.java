@@ -1,14 +1,21 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.game;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import fr.esiea.unique.cosson_hayotte.letters.CommonPot;
+import fr.esiea.unique.cosson_hayotte.letters.Dictionary;
+import fr.esiea.unique.cosson_hayotte.letters.LetterBag;
+import fr.esiea.unique.cosson_hayotte.players.IA;
+import fr.esiea.unique.cosson_hayotte.players.InputPlayer;
+import fr.esiea.unique.cosson_hayotte.players.Player;
+
 public class Game implements Runnable {
 	
 	//Déclaration objet
-	static int i;
+	int i;
 	private int nbPlayers;
 	private LetterBag tirage = new LetterBag();
 	private CommonPot pot = new CommonPot();
@@ -142,9 +149,9 @@ public class Game implements Runnable {
         			System.out.println(liste.getName()+" : Essayes de faire un mot ou passes en écrivant 'P'");
         			
         			//Attente de l'entrée joueur
-        			String s=new Scanner(System.in).nextLine();
-
-        				int cpt=0;
+        			@SuppressWarnings("resource")
+					String s=new Scanner(System.in).nextLine();
+        			
         				Dictionary dico=new Dictionary();
         				//dico.bonMot(s);
         				while(true){

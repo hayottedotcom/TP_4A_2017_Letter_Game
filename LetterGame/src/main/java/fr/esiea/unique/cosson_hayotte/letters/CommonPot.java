@@ -1,7 +1,9 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.letters;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.esiea.unique.cosson_hayotte.players.Player;
 
 public class CommonPot {
 	//List lettre dans le pot commun

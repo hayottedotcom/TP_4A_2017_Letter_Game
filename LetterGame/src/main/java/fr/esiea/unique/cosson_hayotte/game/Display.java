@@ -1,6 +1,8 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.game;
 
 import java.util.List;
+
+import fr.esiea.unique.cosson_hayotte.players.Player;
 
 public class Display {
 	Display(){

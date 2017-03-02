@@ -1,10 +1,10 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.players;
 
 import java.util.Scanner;
 
 public class InputPlayer {
 	private Scanner sc;
-	InputPlayer(){
+	public InputPlayer(){
 		sc = new Scanner(System.in);
 	}
 	

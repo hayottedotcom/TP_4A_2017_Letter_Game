@@ -1,6 +1,4 @@
-package fr.esiea.unique.cosson_hayotte;
-
-import java.util.Random;
+package fr.esiea.unique.cosson_hayotte.letters;
 
 public class LetterBag {
 	

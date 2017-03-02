@@ -8,14 +8,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
+
+import fr.esiea.unique.cosson_hayotte.game.Game;
+import fr.esiea.unique.cosson_hayotte.letters.CommonPot;
+import fr.esiea.unique.cosson_hayotte.letters.Dictionary;
+import fr.esiea.unique.cosson_hayotte.letters.LetterBag;
+import fr.esiea.unique.cosson_hayotte.players.IA;
+import fr.esiea.unique.cosson_hayotte.players.InputPlayer;
+import fr.esiea.unique.cosson_hayotte.players.Player;
 
 public class TestApp {
 	
@@ -43,7 +49,7 @@ public class TestApp {
 		String str = "";
 		Boolean isString = false;
 		try {
-			while ((str = dc.in.readLine()) != null) {
+			while ((str = dc.getDictionary().readLine()) != null) {
 			     if (hasSpecialChar = p.matcher(str).find() == true) {
 			    	 isString = false;
 			    	 break;
@@ -214,7 +220,7 @@ public class TestApp {
 	public void testMainIsClas() {
 		
 		try {
-			Class.forName("fr.esiea.unique.cosson_hayotte.main");
+			Class.forName("fr.esiea.unique.cosson_hayotte.game.main");
 			assertTrue(true);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -1,8 +1,11 @@
-package fr.esiea.unique.cosson_hayotte;
+package fr.esiea.unique.cosson_hayotte.players;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+
+import fr.esiea.unique.cosson_hayotte.letters.Dictionary;
+import fr.esiea.unique.cosson_hayotte.letters.LetterBag;
 
 public class IA {
 	
