@@ -1,5 +1,6 @@
 package fr.esiea.unique.cosson_hayotte.players;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputPlayer {
@@ -9,7 +10,14 @@ public class InputPlayer {
 	}
 	
 	public int playerNumber(){
-		return sc.nextInt();
+		int nbPlayer = 0;
+	
+		 try {
+			 nbPlayer = sc.nextInt();
+		 }catch (InputMismatchException e) {
+			    System.out.println("La valeur saisie n'est pas un entier, lancement par défaut de L'IA");
+		}
+		return nbPlayer;
 	}
 	public String playerWord(){
 		return sc.nextLine();
