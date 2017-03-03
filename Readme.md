@@ -20,7 +20,7 @@ Ensuite, il vous suffit de saisir la commande suivante dans votre terminal pour 
 Les règles du Jeu sont consultables [ici](https://github.com/MLabusquiere/TP_4A_2017_Letter_Game/blob/master/Readme.md).
 
 ## Mode du Jeu
-Le joueur peut choisir de jouer seul contre une IA ou affronter jusqu'à 5 joueurs sur la même écran.
+Le joueur peut choisir de jouer seul contre une IA ou affronter jusqu'à 5 joueurs sur le même écran.
 L'IA est assez diffcile mais ne peut pas voler de mots, vous avez toutes vos chances de gagner :D !
 
 ## Structure du code
@@ -29,10 +29,12 @@ Nous avons trois "packages" regroupant par catégories l'ensemble de nos classes
 - main (permet de lancer le Jeu)
 - Game (moteur du Jeu)
 - Display (permet de gérer l'affichage système du Jeu)
+
 ### players
 - Player (permet de gérer les informations sur le joueur)
 - InputPlayer (permet de gérer toutes les entrées claviers d'un joueur)
 - IA (relatif au fonctionnement de l'IA)
+
 ### letters
 - CommonPot (permet de gérer le pot commun)
 - Dictionnary (permet l'interface avec le dictionnaire)
