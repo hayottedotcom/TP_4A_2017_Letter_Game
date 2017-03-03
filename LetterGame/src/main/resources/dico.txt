@@ -43179,6 +43179,7 @@ tartelette
 tartelettes
 tartempion
 tartes
+ane
 tartine
 tartines
 tartiss
@@ -43197,8 +43198,10 @@ tarés
 tas
 tasmanien
 tasse
+oieu
 tasseau
 tassement
+aveqln
 tassements
 tasses
 tassili

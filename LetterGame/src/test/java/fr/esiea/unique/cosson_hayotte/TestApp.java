@@ -29,13 +29,16 @@ public class TestApp {
 	Pattern p = Pattern.compile("[0-9]");
 	Pattern lts = Pattern.compile("\\p{L}*");
 	Boolean hasSpecialChar = false;
+	List<Player> testListPlayers=new ArrayList <Player>();
+	Dictionary dc = new Dictionary();
+	CommonPot cm = new CommonPot();
 
 	
 	@Before
     public void setup() {
     }
 	
-
+	//Test si on récupère bien une lettre
 	@Test
 	public void testGetLettre() {
 		sl.newDraw();
@@ -43,9 +46,10 @@ public class TestApp {
 		assertNotNull(lettre); //If OK, letter exists.
 	}
 	
+	//Test si un mot dans le dico est un string
 	@Test
 	public void dicoString () {
-		Dictionary dc = new Dictionary();
+		
 		String str = "";
 		Boolean isString = false;
 		try {
@@ -60,22 +64,25 @@ public class TestApp {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		assertEquals(isString, true); //If OK, there are no alphanumeric characters in the Dictionary entries.
+		assertEquals(isString, true); //Si OK, il n'y pas de caractères alphanumériques dans le dico.
 	}
 	
+	//Test si un mot existe dans le dico
 	@Test
 	public void testDictionaryWordExists() {
-		Dictionary dc = new Dictionary();
+
 		String input = "test";
 		assertEquals(dc.isWord(input), true);
 	}
 	
+	//Test si le dico existe
 	@Test
 	public void testIsDictionaryTxtFileExists() {
 		boolean f = new File("src/main/resources/dico.txt").exists();
 		assertEquals(f, true);
 	}
 	
+	//
 	@Test
 	public void testIsLetter() {
 		LetterBag lb = new LetterBag();
@@ -86,9 +93,10 @@ public class TestApp {
 		assertEquals(true, b); //
 	}
 	
+	//Test si ajout dans pot commun ok
 	@Test
 	public void testCommunPot() {
-		CommonPot cm = new CommonPot();
+
 		String letterA = "a";
 		String letterB = "b";
 		ArrayList<String> letters = new ArrayList<String>();
@@ -99,21 +107,8 @@ public class TestApp {
 		assertTrue(letters.equals(cm.getCommonPot()));
 	}
 	
-	/*@Test
-	public void testGame(){
-		boolean x = false; //
-		CommonPot cm = new CommonPot();
-		LetterBag lb = new LetterBag();
-		String out="";
-		String in = "soleil";
-		do {
-			lb.newDraw();
-			out = lb.getLetter();
-			cm.addCommonPot(out);
-		} while(x = in.matches(cm.getCommonPot().toString()) == false);
-		assertEquals(true, x);
-	}*/
 
+	//Test fréquence sur les voyelles 55%
 	@Test
 	public void testFreqLetter() {
 		LetterBag lb = new LetterBag();
@@ -132,6 +127,7 @@ public class TestApp {
 		assertTrue(count > expected);
 	}
 	
+	//Test si l'entrée du joueur est un string
 	@Test
 	public void testIsStringInputPlayer() {
 		String dataInput = "This is a Test";
@@ -146,6 +142,7 @@ public class TestApp {
 		}
 	}
 	
+	//Test si l'entrée du joueur est un int
 	@Test
 	public void testIsIntInputPlayer(){
 		String dataInput = "99";
@@ -160,6 +157,7 @@ public class TestApp {
 		}
 	}
 	
+	//Test si l'ajout d'un mot dans la liste d'un joueur OK
 	@Test
 	public void testWordInPlayerList(){
 		Player player=new Player("test");
@@ -168,6 +166,7 @@ public class TestApp {
 		assertTrue(player.getListWords().contains(wordTest));
 	}
 	
+	//Test si la supression d'un mot dans la liste d'un joueur OK
 	@Test
 	public void testRemoveWordInPlayerList(){
 		Player player=new Player("test");
@@ -177,6 +176,7 @@ public class TestApp {
 		assertFalse(player.getListWords().contains(wordTest));
 	}
 	
+	//Test si le jeu est lancé
 	@Test
 	public void testGameIsRunning() {
 
@@ -193,6 +193,7 @@ public class TestApp {
 
 	}
 	
+	//Test si l'IA a fait un mot OK
 	@Test
 	public void testIAWordOk(){
 		Player testPlayer =new Player("IA");
@@ -205,9 +206,10 @@ public class TestApp {
 		assertEquals(true,testIA.iaMakeWord(testPot));
 	}
 	
+	//Test si un mot est dans le pot
 	@Test
 	public void testWordInPot(){
-		List<Player> testListPlayers=new ArrayList <Player>();
+		
 		testListPlayers.add(new Player("test"));
 		CommonPot testPot=new CommonPot();
 		testPot.addCommonPot("t");
@@ -216,19 +218,42 @@ public class TestApp {
 		assertEquals(true,testPot.wordInPot("tno", testListPlayers));
 	}
 	
+
+	//Test si le tour d'un joueur est terminé
 	@Test
-	public void testMainIsClas() {
-		
-		try {
-			Class.forName("fr.esiea.unique.cosson_hayotte.game.main");
-			assertTrue(true);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			assertTrue(false);
-			e.printStackTrace();
-		}
+	public void testIsTurnFalse() {
+
+		 	Game game = new Game();
+		    ExecutorService service = Executors.newSingleThreadExecutor();
+		    service.execute(game);
+		    testListPlayers.add(new Player("testP1"));
+		    testListPlayers.add(new Player("testP2"));
+		    testListPlayers.get(0).setTurn(true);
+		    game.listPlayers=testListPlayers;
+		    
+		   
+		    game.endTurn(testListPlayers.get(0));
+		    service.shutdown();
+		    assertEquals(false, testListPlayers.get(0).getTurn());
 	 
 
 	}
 	
+	//Test si un joueur vole bien un mot
+	@Test
+	public void testStealWord(){
+	    testListPlayers.add(new Player("testP1"));
+	    testListPlayers.add(new Player("testP2"));
+	    //Ajout du mot tarte pour le joueur1
+	    testListPlayers.get(0).addWord("tarte");
+	    //System.out.println(testListPlayers.get(0).getListWords());
+	    //Ajout de s dans le pot commun
+	    cm.addCommonPot("s");
+	    //Le joueurs 2 vole le mot tarte en faisant tartes
+	    dc.stealWord("tartes", testListPlayers, cm);
+	    //Le joueur 1 n'a plus le mot
+	    assertTrue(testListPlayers.get(0).getListWords().isEmpty());
+	    
+			
+	}
 }

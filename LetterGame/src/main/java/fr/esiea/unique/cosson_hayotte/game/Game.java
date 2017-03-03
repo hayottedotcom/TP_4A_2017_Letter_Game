@@ -19,7 +19,7 @@ public class Game implements Runnable {
 	private int nbPlayers;
 	private LetterBag tirage = new LetterBag();
 	private CommonPot pot = new CommonPot();
-	private List<Player> listPlayers = new ArrayList <Player>();
+    public  List<Player> listPlayers = new ArrayList <Player>();
 	private TreeMap<String, String> treeMap=new TreeMap<String, String>();
 	private Display display;
 	private IA ia;
@@ -123,7 +123,7 @@ public class Game implements Runnable {
     	    //On parcours la liste de joueurs
         	listPlayers.forEach((liste)->{
         		if(liste.getScore()==10){
-        			System.out.println(liste.getName()+" à gagné");
+        			System.out.println(liste.getName()+" a gagné");
         			System.exit(0);
         		}
         		//Si c'est son tour alors
@@ -165,7 +165,7 @@ public class Game implements Runnable {
         							endTurn(liste);
         	        				break;
         	        		}
-        					else if(dico.isWord(s)==false || pot.wordInPot(s,listPlayers)==false){
+        					else if(!dico.isWord(s) || !pot.wordInPot(s,listPlayers)){
         					
         					System.out.println("Le mot est incorrect ou pas présent dans le pot");
         					s=new Scanner(System.in).nextLine();
