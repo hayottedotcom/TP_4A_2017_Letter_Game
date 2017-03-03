@@ -46,7 +46,7 @@ public class TestApp {
 		assertNotNull(lettre); //If OK, letter exists.
 	}
 	
-	//Test si un mot dans le dico est un string
+	//Test si un mot dans le Dictionnaire est bien un String
 	@Test
 	public void dicoString () {
 		
@@ -64,10 +64,10 @@ public class TestApp {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		assertEquals(isString, true); //Si OK, il n'y pas de caractères alphanumériques dans le dico.
+		assertEquals(isString, true); //Si OK, il n'y pas de caractères alphanumériques dans le Dictionnaire.
 	}
 	
-	//Test si un mot existe dans le dico
+	//Test si un mot existe dans le Dictionnaire
 	@Test
 	public void testDictionaryWordExists() {
 
@@ -75,7 +75,7 @@ public class TestApp {
 		assertEquals(dc.isWord(input), true);
 	}
 	
-	//Test si le dico existe
+	//Test si le Dictionnaire existe
 	@Test
 	public void testIsDictionaryTxtFileExists() {
 		boolean f = new File("src/main/resources/dico.txt").exists();
@@ -93,7 +93,7 @@ public class TestApp {
 		assertEquals(true, b); //
 	}
 	
-	//Test si ajout dans pot commun ok
+	//Test si ajout dans pot commun OK
 	@Test
 	public void testCommunPot() {
 
@@ -108,7 +108,7 @@ public class TestApp {
 	}
 	
 
-	//Test fréquence sur les voyelles 55%
+	//Test fréquence sur les voyelles (supérieur à 55%)
 	@Test
 	public void testFreqLetter() {
 		LetterBag lb = new LetterBag();
@@ -127,7 +127,7 @@ public class TestApp {
 		assertTrue(count > expected);
 	}
 	
-	//Test si l'entrée du joueur est un string
+	//Test si l'entrée du joueur est bien un String
 	@Test
 	public void testIsStringInputPlayer() {
 		String dataInput = "This is a Test";
@@ -142,7 +142,7 @@ public class TestApp {
 		}
 	}
 	
-	//Test si l'entrée du joueur est un int
+	//Test si l'entrée du joueur est bien un entier (int)
 	@Test
 	public void testIsIntInputPlayer(){
 		String dataInput = "99";
@@ -166,7 +166,7 @@ public class TestApp {
 		assertTrue(player.getListWords().contains(wordTest));
 	}
 	
-	//Test si la supression d'un mot dans la liste d'un joueur OK
+	//Test si la suppression d'un mot dans la liste d'un joueur OK
 	@Test
 	public void testRemoveWordInPlayerList(){
 		Player player=new Player("test");
@@ -253,7 +253,23 @@ public class TestApp {
 	    dc.stealWord("tartes", testListPlayers, cm);
 	    //Le joueur 1 n'a plus le mot
 	    assertTrue(testListPlayers.get(0).getListWords().isEmpty());
-	    
-			
+	}
+	
+	//Test si le score du joueur est bien un entier (int)
+	@Test
+	public void testIsIntPlayerScore() {
+		Player pl = new Player("Player0");
+		pl.setScore();
+		assertTrue((Integer)pl.getScore() instanceof Integer);
+	}
+	
+	// Test si la fonction renvoie bien la dernière lettre du joueur
+	@Test
+	public void testIsTrueGetLastLetterPlayer() {
+		Player pl = new Player("Player0");
+		String myLetter1 = "a", myLetter2 = "f";
+		pl.setLastLetter(myLetter1);
+		pl.setLastLetter(myLetter2);
+		assertEquals(pl.getLastLetter(), myLetter2);
 	}
 }
