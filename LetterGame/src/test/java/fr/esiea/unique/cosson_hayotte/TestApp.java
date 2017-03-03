@@ -198,11 +198,11 @@ public class TestApp {
 	public void testIAWordOk(){
 		Player testPlayer =new Player("IA");
 		IA testIA=new IA(testPlayer);
-		List<String> testPot = new ArrayList<String>(); 
-		testPot.add("a");
-		testPot.add("n");
-		testPot.add("g");
-		testPot.add("e");
+		CommonPot testPot=new CommonPot();
+		testPot.getCommonPot().add("a");
+		testPot.getCommonPot().add("n");
+		testPot.getCommonPot().add("g");
+		testPot.getCommonPot().add("e");
 		assertEquals(true,testIA.iaMakeWord(testPot));
 	}
 	

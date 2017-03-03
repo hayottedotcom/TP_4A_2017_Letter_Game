@@ -136,8 +136,8 @@ public class Game implements Runnable {
     				//Si l'IA joue
     				if(liste.getName()=="IA"){
     					//L'IA fait un mot
-    					ia.iaMakeWord(pot.getCommonPot());
-    					liste.setScore();
+    					ia.iaMakeWord(pot);
+    					
     					endTurn(liste);
         				
     				}

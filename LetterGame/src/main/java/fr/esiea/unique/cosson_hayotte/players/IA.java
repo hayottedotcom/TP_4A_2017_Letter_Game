@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
+import fr.esiea.unique.cosson_hayotte.letters.CommonPot;
 import fr.esiea.unique.cosson_hayotte.letters.Dictionary;
 import fr.esiea.unique.cosson_hayotte.letters.LetterBag;
 
@@ -14,20 +15,21 @@ public class IA {
 		this.IA=IA;
 	}
 	
-	public boolean iaMakeWord(List<String> pot){
+	public boolean iaMakeWord(CommonPot pot){
 		Dictionary dico= new Dictionary();
 		BufferedReader in=dico.getDictionary();
 		String str="";
         try {
 			while ((str = in.readLine()) != null) {
-			     if (str.matches("["+pot+"]*")) {
+			     if (str.matches("["+pot.getCommonPot()+"]*") && pot.notUsedTwoSameChars(str) ) {
 			    	IA.addWord(str);
 			    	//System.out.println(str.length()+" "+str.charAt(0));
 			    	for (int i=0;i<str.length();i++)
-			    	pot.remove(""+str.charAt(i));
+			    	pot.getCommonPot().remove(""+str.charAt(i));
 			    	LetterBag draw=new LetterBag();
 			    	draw.newDraw();
-			    	pot.add(draw.getLetter());
+			    	IA.setScore();
+			    	pot.getCommonPot().add(draw.getLetter());
 			    	return true;
 
 			     }
